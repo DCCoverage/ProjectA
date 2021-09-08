@@ -1,5 +1,23 @@
 # IIC3745 Project A
 
+## Setup
+
+To start the project you should have bundler installed and run:
+
+```
+bin/setup
+```
+
+To run tests and coverage:
+```
+bundle exec rspec
+```
+
+To run rubocop:
+```
+bundle exec rubocop
+```
+
 ## Conventions
 
 ### Commits
