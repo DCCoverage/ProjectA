@@ -10,12 +10,12 @@ bin/setup
 
 To run tests and coverage:
 ```
-bundle exec rspec
+rake test
 ```
 
 To run rubocop:
 ```
-bundle exec rubocop
+rake rubocop
 ```
 
 ## Conventions
