@@ -16,6 +16,7 @@ class Grid
       @cells << grid_row
     end
     randomize_bombs
+    set_bomb_counts
   end
 
   def randomize_bombs
@@ -31,4 +32,18 @@ class Grid
       options.delete(position)
     end
   end
+
+  def set_bomb_counts
+    @cells.each do |row|
+      row.each do |cell|
+        cell.count_bombs_around(@cells, @number_of_lines)
+      end
+    end
+  end
 end
+
+# useful way to visualize a grid
+# a = Grid.new(5, 10)
+# a.cells.each do |row|
+#   puts row.map(&:symbol).join(' ')
+# end
