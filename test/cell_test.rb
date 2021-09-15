@@ -18,4 +18,11 @@ class CellTest < Test::Unit::TestCase
     cell.reveal
     assert_true cell.revealed
   end
+
+  def test_symbol
+    bomb = Cell.new(1, 1, true)
+    assert_equal bomb.symbol, 'X'
+    cell = Cell.new(1, 1, false)
+    assert_equal cell.symbol, '0'
+  end
 end
