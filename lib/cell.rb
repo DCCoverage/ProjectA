@@ -11,11 +11,10 @@ class Cell
   end
 
   def reveal(grid_cells, number_of_lines)
-    if self.bombs_around == 0
-      self.flood_fill(grid_cells, number_of_lines)
-    else
-      @revealed = true
-    end
+    @revealed = true
+    return unless bombs_around.zero?
+
+    flood_fill(grid_cells, number_of_lines)
   end
 
   def count_bombs_around(grid_cells, number_of_lines)
@@ -41,10 +40,6 @@ class Cell
   end
 
   def flood_fill(grid_cells, number_of_lines)
-    if @revealed || @bombs_around > 0
-      return
-    end
-    @revealed = true
     (-1..1).each do |x_offset|
       neighbour_x = @pos_x + x_offset
       next if neighbour_x.negative? || neighbour_x >= number_of_lines
@@ -54,7 +49,7 @@ class Cell
         next if neighbour_y.negative? || neighbour_y >= number_of_lines
 
         neighbour = grid_cells[neighbour_x][neighbour_y]
-        neighbour.flood_fill(grid_cells, number_of_lines)
+        neighbour.reveal(grid_cells, number_of_lines) unless neighbour.revealed
       end
     end
   end
