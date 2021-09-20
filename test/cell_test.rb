@@ -114,6 +114,16 @@ class CellTest < Test::Unit::TestCase
     assert_false mock_grid.cells[1][0].revealed
   end
 
+  def test_flood_fill_on_bomb
+    mock_grid = generate_3x3_mock_grid
+
+    # Reveal cell with 0 (flood fill all except bomb)
+    mock_grid.cells[0][0].reveal(mock_grid.cells, 3)
+
+    assert_false mock_grid.cells[0][1].revealed
+    assert_false mock_grid.cells[1][0].revealed
+  end
+
   def test_symbol
     bomb = Cell.new(1, 1, true)
     assert_equal bomb.symbol, 'X'
