@@ -40,6 +40,12 @@ class Grid
       end
     end
   end
+
+  # Override Grid Cells for testing purposes
+  def override_cells(new_cells)
+    @cells = new_cells
+    set_bomb_counts
+  end
 end
 
 # useful way to visualize a grid
