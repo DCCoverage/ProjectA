@@ -10,8 +10,12 @@ class Cell
     @bombs_around = 0
   end
 
-  def reveal
-    @revealed = true
+  def reveal(grid_cells, number_of_lines)
+    if self.bombs_around == 0
+      self.flood_fill(grid_cells, number_of_lines)
+    else
+      @revealed = true
+    end
   end
 
   def count_bombs_around(grid_cells, number_of_lines)
@@ -34,6 +38,25 @@ class Cell
       end
     end
     @bombs_around = total_bombs
+  end
+
+  def flood_fill(grid_cells, number_of_lines)
+    if @revealed || @bombs_around > 0
+      return
+    end
+    @revealed = true
+    (-1..1).each do |x_offset|
+      neighbour_x = @pos_x + x_offset
+      next if neighbour_x.negative? || neighbour_x >= number_of_lines
+
+      (-1..1).each do |y_offset|
+        neighbour_y = @pos_y + y_offset
+        next if neighbour_y.negative? || neighbour_y >= number_of_lines
+
+        neighbour = grid_cells[neighbour_x][neighbour_y]
+        neighbour.flood_fill(grid_cells, number_of_lines)
+      end
+    end
   end
 
   def symbol
