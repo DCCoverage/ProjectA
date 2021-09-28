@@ -56,7 +56,7 @@ class Grid
   end
 
   def spaced_cell(cell)
-    "║ #{cell.to_s.center((@dimension - 1).to_s.length, " ")} ║"
+    "║ #{cell.to_s.center((@dimension - 1).to_s.length, ' ')} ║"
   end
 
   def to_s
@@ -66,7 +66,7 @@ class Grid
     @cells.each_with_index do |item, index|
       template += "#{indentation}#{" ╔#{stretched_pipe}╗" * @dimension}\n"
 
-      vertical_index = index.to_s.rjust(max_index_width, "0")
+      vertical_index = index.to_s.rjust(max_index_width, '0')
       template += "#{vertical_index} #{(item.map { |cell| spaced_cell(cell) }).join(' ')}\n"
       template += "#{indentation}#{" ╚#{stretched_pipe}╝" * @dimension}\n"
     end
