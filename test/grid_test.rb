@@ -28,4 +28,29 @@ class GridTest < Test::Unit::TestCase
     end
     assert_equal NUMBER_OF_BOMBS, bombs_on_grid
   end
+
+  def test_hidden_grid
+    expected_grid = File.open('./test/assets/hidden_grid.txt').read
+
+    grid = Grid.new(3, 1)
+    assert_equal expected_grid, grid.to_s
+  end
+
+  def test_revealed_grid
+    expected_grid = File.open('./test/assets/revealed_grid.txt').read
+    srand(1234)
+    grid = Grid.new(3, 1)
+    grid.cells.each do |row|
+      row.each do |cell|
+        cell.reveal(grid.cells, grid.cells.length)
+      end
+    end
+    assert_equal expected_grid, grid.to_s
+  end
+
+  def test_large_hidden_grid
+    expected_grid = File.open('./test/assets/hidden_large_grid.txt').read
+    grid = Grid.new(11, 2)
+    assert_equal expected_grid, grid.to_s
+  end
 end
