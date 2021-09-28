@@ -59,17 +59,22 @@ class Grid
     "║ #{cell.to_s.center((@dimension - 1).to_s.length, ' ')} ║"
   end
 
+  def build_body(indentation)
+    body = ''
+    @cells.each_with_index do |item, index|
+      body += "#{indentation}#{" ╔#{stretched_pipe}╗" * @dimension}\n"
+      vertical_index = index.to_s.rjust(indentation.length, '0')
+      body += "#{vertical_index} #{(item.map { |cell| spaced_cell(cell) }).join(' ')}\n"
+      body += "#{indentation}#{" ╚#{stretched_pipe}╝" * @dimension}\n"
+    end
+    body
+  end
+
   def to_s
     max_index_width = (@dimension - 1).to_s.length
     indentation = ' ' * max_index_width
     template = "#{indentation}   #{(0...@dimension).map { |index| spaced_index(index) }.join '     '}\n"
-    @cells.each_with_index do |item, index|
-      template += "#{indentation}#{" ╔#{stretched_pipe}╗" * @dimension}\n"
-
-      vertical_index = index.to_s.rjust(max_index_width, '0')
-      template += "#{vertical_index} #{(item.map { |cell| spaced_cell(cell) }).join(' ')}\n"
-      template += "#{indentation}#{" ╚#{stretched_pipe}╝" * @dimension}\n"
-    end
+    template += build_body indentation
     template
   end
 end
