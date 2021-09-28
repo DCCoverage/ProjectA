@@ -130,4 +130,9 @@ class CellTest < Test::Unit::TestCase
     cell = Cell.new(1, 1, false)
     assert_equal cell.symbol, '0'
   end
+
+  def test_to_s
+    hidden = Cell.new(1, 1, false)
+    assert_equal '░', hidden.to_s
+  end
 end
