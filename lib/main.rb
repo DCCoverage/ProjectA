@@ -1,6 +1,11 @@
 require_relative 'grid'
 
 class Game
+  attr_reader :game_board
+
+  def initialize
+    @game_board = 0
+  end
   def initial_menu
     puts '1. Play DCCMinesweeper'
     puts '2. Exit'
@@ -13,11 +18,13 @@ class Game
     number_of_lines = gets.to_i
     puts 'Enter the number of bombs you want on your board'
     number_of_bombs = gets.to_i
-    board = Grid.new(number_of_lines, number_of_bombs)
-    # Here we should replace with the logic to view the board
+    @game_board = Grid.new(number_of_lines, number_of_bombs)
+    game_display
+  end
 
-    puts board.to_s
-    makeg
+  def game_display
+    puts @game_board.to_s
+    make_guess
   end
 
   def begin
@@ -26,17 +33,26 @@ class Game
   end
 
   def make_guess
-    puts 'Work in progress :)'
+    puts "Enter coordinates for your guess separated by a comma (example: '2,3')"
+    puts "Enter 'exit' to finish the game"
+    guess = gets.chomp
+    if guess == "exit"
+      puts "Thank you for playing!"
+    else
+      puts "trying to improve"
+      game_display
+    end
   end
 end
 
 game = Game.new
-playing = true
-while playing
-  option = game.initial_menu
-  if option == 1
-    game.game_options_menu
-  else
-    playing = false
-  end
-end
+game.begin
+# playing = true
+# while playing
+#   option = game.initial_menu
+#   if option == 1
+#     game.game_options_menu
+#   else
+#     playing = false
+#   end
+# end
