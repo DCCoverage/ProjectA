@@ -2,10 +2,10 @@ require_relative 'grid'
 
 class Game
   def initial_menu
-    puts 'Welcome to DCCMinesweeper!'
     puts '1. Play DCCMinesweeper'
     puts '2. Exit'
-    gets.to_i
+    game_options_menu if gets.to_i == 1
+    puts 'Good bye'
   end
 
   def game_options_menu
@@ -14,10 +14,19 @@ class Game
     puts 'Enter the number of bombs you want on your board'
     number_of_bombs = gets.to_i
     board = Grid.new(number_of_lines, number_of_bombs)
-    #Here we should replace with the logic to view the board
-    board.cells.each do |row|
-      puts row.map(&:symbol).join(' ')
-    end
+    # Here we should replace with the logic to view the board
+
+    puts board.to_s
+    makeg
+  end
+
+  def begin
+    puts 'Welcome to DCCMinesweeper!'
+    initial_menu
+  end
+
+  def make_guess
+    puts 'Work in progress :)'
   end
 end
 
