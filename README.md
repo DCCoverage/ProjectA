@@ -41,3 +41,7 @@ feat(user-payment): add payment method
 ### Pull requests
 
 This repo includes a PR template that you may follow
+
+### References
+
+* [kfrn (2017) minesweeper-ruby](https://github.com/kfrn/minesweeper-ruby)
