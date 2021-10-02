@@ -1,66 +1,83 @@
-require_relative 'grid'
+require_relative 'game'
+require_relative 'ui'
 
-class Game
-  attr_reader :game_board
+class Minesweeper
+  attr_accessor :game, :ui, :board
 
   def initialize
-    @game_board = nil
-    @number_of_lines = nil
-    @number_of_bombs = nil
-  end
-
-  def initial_menu
-    puts '1. Play DCCMinesweeper'
-    puts '2. Exit'
-    game_setup_menu if gets.to_i == 1
-    puts 'Good bye'
-  end
-
-  def game_setup_menu
-    puts 'Enter de number of lines you want for your board'
-    @number_of_lines = gets.to_i
-    puts 'Enter the number of bombs you want on your board'
-    @number_of_bombs = gets.to_i
-    @game_board = Grid.new(@number_of_lines, @number_of_bombs)
-    game_display
-  end
-
-  def game_display
-    puts @game_board.to_s
-    puts "Enter coordinates for your guess separated by a comma (example: '2,3')"
-    puts "Enter 'exit' to finish the game"
-    make_guess
+    @game = Game.new
+    @ui = UI.new(@game)
   end
 
   def begin
-    puts 'Welcome to DCCMinesweeper!'
-    initial_menu
+    @ui.print_welcome_message
+
+    if ready_to_play_confirmation
+
+      game_dimention, number_of_bombs = set_your_game
+
+      @game.game_setup(game_dimention, number_of_bombs)
+      @ui.print_game_ready
+
+      play_turn while @game.game_in_progress
+    end
+
+    if @game.game_lost
+      @ui.print_game_over_message
+    elsif @game.game_won
+      @ui.clear_screen
+      @ui.draw_board(board)
+      @ui.print_win_message
+    end
+    @ui.print_end_game_message
   end
 
-  def check_user_input(user_input)
-    user_input = user_input.split(',')
-    return false if user_input.length != 2
+  private
 
-    user_input.each do |element|
-      extra = element
-      return false if element.to_i.to_s != extra || (element.to_i >= @number_of_lines || element.to_i.negative?)
+  def play_turn
+    @ui.clear_screen
+    @ui.draw_board(@game.game_board)
+
+    guess = enter_player_guess
+    if guess == false
+      @game.game_in_progress = false
+    else
+      coord_x, coord_y = guess
+      puts coord_x
+      puts coord_y
     end
   end
 
-  def make_guess
-    guess = gets.chomp
-    if guess == 'exit'
-      puts 'Thank you for playing!'
-    else
-      if check_user_input(guess)
-        puts 'INPUT VALIDOOO A JUEGAARSS'
-      else
-        puts 'Input invalido, intentelo de nuevo'
-      end
-      game_display
+  def enter_player_guess
+    loop do
+      user_input = @ui.print_user_guess_instructions
+      return false if @game.check_exit_game(user_input)
+      return @game.check_user_input(user_input) if @game.check_user_input(user_input)
+
+      @ui.print_wrong_input_message
+    end
+  end
+
+  def set_your_game
+    loop do
+      game_dimention = @ui.print_dimention_setup
+      number_of_bombs = @ui.print_bombs_setup
+      return game_dimention, number_of_bombs if @game.check_valid_game_setup(game_dimention, number_of_bombs)
+
+      @ui.print_incorrect_game_setup
+    end
+  end
+
+  def ready_to_play_confirmation
+    loop do
+      confirmation = @ui.print_ready_to_play_confirmation
+      break true if confirmation == 1
+      break false if confirmation == 2
+
+      @ui.print_wrong_input_message
     end
   end
 end
 
-game = Game.new
-game.begin
+puts 'redy to rumble'
+Minesweeper.new.begin
