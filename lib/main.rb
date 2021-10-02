@@ -21,7 +21,12 @@ class Minesweeper
 
       play_turn while @game.game_in_progress
     end
+    check_game_status
+  end
 
+  private
+
+  def check_game_status
     if @game.game_lost
       @ui.clear_screen
       @ui.draw_board(@game.game_board)
@@ -35,17 +40,13 @@ class Minesweeper
     @ui.print_end_game_message
   end
 
-  private
-
   def play_turn
     @ui.clear_screen
     @ui.draw_board(@game.game_board)
 
     guess = enter_player_guess
 
-    if @game.game_in_progress
-      @game.reveal_guess(guess)
-    end
+    @game.reveal_guess(guess) if @game.game_in_progress
   end
 
   def enter_player_guess

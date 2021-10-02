@@ -24,7 +24,7 @@ class Game
       @game_in_progress = false
       return true
     end
-    return false
+    false
   end
 
   def check_user_input(user_input)
@@ -64,6 +64,3 @@ class Game
     @game_in_progress = false
   end
 end
-
-# game = Game.new
-# game.begin
