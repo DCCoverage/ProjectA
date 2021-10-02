@@ -2,7 +2,7 @@ require_relative 'game'
 require_relative 'ui'
 
 class Minesweeper
-  attr_accessor :game, :ui, :board
+  attr_accessor :game, :ui
 
   def initialize
     @game = Game.new
