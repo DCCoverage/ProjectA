@@ -23,10 +23,13 @@ class Minesweeper
     end
 
     if @game.game_lost
+      @ui.clear_screen
+      @ui.draw_board(@game.game_board)
+      @ui.print_mine_message
       @ui.print_game_over_message
     elsif @game.game_won
       @ui.clear_screen
-      @ui.draw_board(board)
+      @ui.draw_board(@game.game_board)
       @ui.print_win_message
     end
     @ui.print_end_game_message
@@ -39,19 +42,18 @@ class Minesweeper
     @ui.draw_board(@game.game_board)
 
     guess = enter_player_guess
-    if guess == false
-      @game.game_in_progress = false
-    else
-      coord_x, coord_y = guess
-      puts coord_x
-      puts coord_y
+
+    if @game.game_in_progress
+      @game.reveal_guess(guess)
     end
   end
 
   def enter_player_guess
     loop do
       user_input = @ui.print_user_guess_instructions
-      return false if @game.check_exit_game(user_input)
+
+      break if @game.check_exit_game(user_input)
+
       return @game.check_user_input(user_input) if @game.check_user_input(user_input)
 
       @ui.print_wrong_input_message
