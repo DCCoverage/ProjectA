@@ -32,8 +32,7 @@ class Game
     return false if user_input.length != 2
 
     user_input.each do |element|
-      extra = element
-      return false if element.to_i.to_s != extra || (element.to_i >= @game_dimention || element.to_i.negative?)
+      return false if !is_numeric?(element) || (element.to_i >= @game_dimention || element.to_i.negative?)
     end
 
     user_input.map(&:to_i)
@@ -62,5 +61,11 @@ class Game
       @game_won = true
     end
     @game_in_progress = false
+  end
+
+  private
+
+  def numeric?(input_text)
+    return true if Integer(input_text) rescue false
   end
 end
