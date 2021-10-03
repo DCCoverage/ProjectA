@@ -1,19 +1,19 @@
 require_relative 'cell'
 
 class Grid
-  attr_reader :cells, :number_of_bombs
+  attr_reader :cells, :dimension, :number_of_bombs
 
   def initialize(dimension, number_of_bombs)
-    @dimension = dimension
-    @number_of_bombs = if number_of_bombs <= dimension**2
-                         number_of_bombs
+    @dimension = check_params(dimension)
+    @number_of_bombs = if check_params(number_of_bombs) <= dimension**2
+                         check_params(number_of_bombs)
                        else
-                         dimension**2 - 1
+                         @dimension**2 - 1
                        end
     @cells = []
-    (0...dimension).each do |row|
+    (0...@dimension).each do |row|
       grid_row = []
-      (0...dimension).each do |column|
+      (0...@dimension).each do |column|
         new_cell = Cell.new(row, column, false)
         grid_row << new_cell
       end
@@ -21,6 +21,16 @@ class Grid
     end
     randomize_bombs
     set_bomb_counts
+  end
+
+  def check_params(param)
+    if param.is_a? Integer
+      return param if param.positive?
+
+      -param
+    else
+      return param.round if param.is_a? Float
+    end
   end
 
   def randomize_bombs
