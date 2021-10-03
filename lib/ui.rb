@@ -17,7 +17,11 @@ class UI
   end
 
   def print_dimention_setup
-    puts 'Enter de number of lines you want for your board'
+    puts 'Select the game level you want to play'
+    puts '1. Easy: 9x9 - 10 bombs'
+    puts '2. Medium: 16x16 - 40 bombs'
+    puts '3. Hard: 20x20 - 99 bombs'
+    puts '4. Extreme: 27x27 - 180 bombs'
     gets.to_i
   end
 

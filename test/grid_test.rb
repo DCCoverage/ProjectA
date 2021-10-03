@@ -53,4 +53,30 @@ class GridTest < Test::Unit::TestCase
     grid = Grid.new(11, 2)
     assert_equal expected_grid, grid.to_s
   end
+
+  def test_amount_of_bombs
+    grid = Grid.new(10, 150)
+    max_bombs = 99
+    assert_equal max_bombs, grid.number_of_bombs
+  end
+
+  def test_negative_dimensions
+    grid = Grid.new(-NUMBER_OF_LINES, NUMBER_OF_BOMBS)
+    assert_equal NUMBER_OF_LINES, grid.dimension
+  end
+
+  def test_float_dimensions
+    grid = Grid.new(8.3, NUMBER_OF_BOMBS)
+    assert_equal NUMBER_OF_LINES, grid.dimension
+  end
+
+  def test_negative_bombs
+    grid = Grid.new(NUMBER_OF_LINES, -NUMBER_OF_BOMBS)
+    assert_equal NUMBER_OF_BOMBS, grid.number_of_bombs
+  end
+
+  def test_float_bombs
+    grid = Grid.new(NUMBER_OF_LINES, 15.1)
+    assert_equal NUMBER_OF_BOMBS, grid.number_of_bombs
+  end
 end

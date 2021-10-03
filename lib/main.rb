@@ -64,9 +64,10 @@ class Minesweeper
   def set_your_game
     loop do
       game_dimention = @ui.print_dimention_setup
-      number_of_bombs = @ui.print_bombs_setup
-      return game_dimention, number_of_bombs if @game.check_valid_game_setup(game_dimention, number_of_bombs)
-
+      if @game.check_valid_game_setup(game_dimention)
+        n_cells, n_bombs = @game.get_mode(game_dimention)
+        return n_cells, n_bombs
+      end
       @ui.print_incorrect_game_setup
     end
   end

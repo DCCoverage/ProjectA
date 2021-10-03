@@ -13,10 +13,10 @@ class Game
     @game_won = false
   end
 
-  def game_setup(game_dimention, number_bombs)
+  def game_setup(game_dimention, number_of_bombs)
     @game_dimention = game_dimention
-    @game_number_of_bombs = number_bombs
-    @game_board = Grid.new(game_dimention, number_bombs)
+    @number_of_bombs = number_of_bombs
+    @game_board = Grid.new(game_dimention, number_of_bombs)
   end
 
   def check_exit_game(user_input)
@@ -28,6 +28,8 @@ class Game
   end
 
   def check_user_input(user_input)
+    return false if user_input[-1] == ','
+
     user_input = user_input.split(',')
     return false if user_input.length != 2
 
@@ -38,8 +40,8 @@ class Game
     user_input.map(&:to_i)
   end
 
-  def check_valid_game_setup(game_dimention, number_of_bombs)
-    return true if game_dimention.positive? && number_of_bombs.positive? && number_of_bombs <= game_dimention**2
+  def check_valid_game_setup(game_dimention)
+    return true if numeric?(game_dimention) && game_dimention <= 4 && game_dimention >= 1
 
     false
   end
@@ -63,9 +65,14 @@ class Game
     @game_in_progress = false
   end
 
-  private
+  def get_mode(game_dimention)
+    game_options = [[9, 10], [16, 40], [20, 99], [27, 180]]
+    [game_options[game_dimention - 1][0], game_options[game_dimention - 1][1]]
+  end
 
   def numeric?(input_text)
-    return true if Integer(input_text) rescue false
+    return true if Integer(input_text)
+  rescue StandardError
+    false
   end
 end
