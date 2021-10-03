@@ -45,3 +45,4 @@ This repo includes a PR template that you may follow
 ### References
 
 * [kfrn (2017) minesweeper-ruby](https://github.com/kfrn/minesweeper-ruby)
+* [Coding Train (2019) minesweeper on P5](https://github.com/CodingTrain/website/blob/main/CodingChallenges/CC_071_minesweeper/P5/)
