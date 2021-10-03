@@ -28,7 +28,10 @@ class Game
   end
 
   def check_user_input(user_input)
+    return false if user_input[-1] == ','
+
     user_input = user_input.split(',')
+    puts user_input
     return false if user_input.length != 2
 
     user_input.each do |element|
