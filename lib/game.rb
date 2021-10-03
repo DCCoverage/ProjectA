@@ -31,7 +31,6 @@ class Game
     return false if user_input[-1] == ','
 
     user_input = user_input.split(',')
-    puts user_input
     return false if user_input.length != 2
 
     user_input.each do |element|
@@ -42,7 +41,7 @@ class Game
   end
 
   def check_valid_game_setup(game_dimention)
-    return true if is_numeric(game_dimention) && game_dimention <= 4 && game_dimention >= 1
+    return true if numeric?(game_dimention) && game_dimention <= 4 && game_dimention >= 1
 
     false
   end
@@ -67,15 +66,11 @@ class Game
   end
 
   def get_mode(game_dimention)
-    game_options = { 'easy' => [9, 10], 'medium' => [16, 40], 'hard' => [20, 99], 'extreme' => [27, 180] }
-
-    return game_options['easy'][0], game_options['easy'][1] if game_dimention == 1
-    return game_options['medium'][0], game_options['medium'][1] if game_dimention == 2
-    return game_options['hard'][0], game_options['hard'][1] if game_dimention == 3
-    return game_options['extreme'][0], game_options['extreme'][1] if game_dimention == 4
+    game_options = [[9, 10], [16, 40], [20, 99], [27, 180]]
+    [game_options[game_dimention - 1][0], game_options[game_dimention - 1][1]]
   end
 
-  def is_numeric(input_text)
+  def numeric?(input_text)
     return true if Integer(input_text)
   rescue StandardError
     false

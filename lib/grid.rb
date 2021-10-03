@@ -24,12 +24,13 @@ class Grid
   end
 
   def check_params(param)
-    if param.is_a? Integer
+    case param
+    when Integer
       return param if param.positive?
 
       -param
-    else
-      return param.round if param.is_a? Float
+    when Float
+      param.round
     end
   end
 
