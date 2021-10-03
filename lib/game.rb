@@ -73,6 +73,8 @@ class Game
   end
 
   def is_numeric(input_text)
-    return true if Integer(input_text) rescue false
+    return true if Integer(input_text)
+  rescue StandardError
+    false
   end
 end

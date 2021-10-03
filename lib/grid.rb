@@ -1,11 +1,15 @@
 require_relative 'cell'
 
 class Grid
-  attr_reader :cells
+  attr_reader :cells, :number_of_bombs
 
   def initialize(dimension, number_of_bombs)
     @dimension = dimension
-    @number_of_bombs = number_of_bombs
+    @number_of_bombs = if number_of_bombs <= dimension**2
+                         number_of_bombs
+                       else
+                         dimension**2 - 1
+                       end
     @cells = []
     (0...dimension).each do |row|
       grid_row = []

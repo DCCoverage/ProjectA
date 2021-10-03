@@ -53,4 +53,10 @@ class GridTest < Test::Unit::TestCase
     grid = Grid.new(11, 2)
     assert_equal expected_grid, grid.to_s
   end
+
+  def test_amount_of_bombs
+    grid = Grid.new(10, 150)
+    max_bombs = 99
+    assert_equal max_bombs, grid.number_of_bombs
+  end
 end
