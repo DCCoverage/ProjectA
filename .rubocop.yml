@@ -16,6 +16,16 @@ Metrics/ParameterLists:
   Max: 4
   Enabled: true
 
+Metrics/MethodLength:
+  Max: 17
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+
 # Style Cops
 
 Style/BlockDelimiters:
@@ -23,6 +33,9 @@ Style/BlockDelimiters:
     - 'spec/**/*'
 
 Style/SymbolArray:
+  Enabled: false
+
+Style/RescueModifier:
   Enabled: false
 
 Style/Documentation:
