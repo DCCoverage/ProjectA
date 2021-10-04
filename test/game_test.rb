@@ -86,6 +86,11 @@ class GameTest < Test::Unit::TestCase
     assert_true game.game_won
   end
 
+  def test_get_mode
+    game = valid_game
+    assert_equal game.get_mode(2), [16, 40]
+  end
+
   private
 
   def valid_game

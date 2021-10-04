@@ -67,7 +67,7 @@ class Game
 
   def get_mode(game_dimention)
     game_options = [[9, 10], [16, 40], [20, 99], [27, 180]]
-    [game_options[game_dimention - 1][0], game_options[game_dimention - 1][1]]
+    game_options[game_dimention - 1]
   end
 
   def numeric?(input_text)
