@@ -34,7 +34,7 @@ class Game
     return false if user_input.length != 2
 
     user_input.each do |element|
-      return false if !is_numeric?(element) || (element.to_i >= @game_dimention || element.to_i.negative?)
+      return false if !numeric?(element) || (element.to_i >= @game_dimention || element.to_i.negative?)
     end
 
     user_input.map(&:to_i)
@@ -67,7 +67,7 @@ class Game
 
   def get_mode(game_dimention)
     game_options = [[9, 10], [16, 40], [20, 99], [27, 180]]
-    [game_options[game_dimention - 1][0], game_options[game_dimention - 1][1]]
+    game_options[game_dimention - 1]
   end
 
   def numeric?(input_text)
